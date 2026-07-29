@@ -1,0 +1,42 @@
+$body-bg: #e7debe;
+$primary: #cca363;
+$secondary: #6d7746;
+$success: #00f867;
+$info: #5d0149;
+$warning: #fbcf33;
+$danger: #E26363;
+$light: #f2f2f2;
+$dark: #111927;
+$grey: #B5AF98;
+
+$font-sans-serif: Open Sans;
+$font-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+$gradient: linear-gradient(180deg, hsla(0, 0%, 100%, 0.15), hsla(0, 0%, 100%, 0));
+
+// REVIEW MUSEO SLAB (HEADING)
+// font-family: museo-slab,serif;
+// font-weight: 300;
+// font-style: normal;
+
+$colors: (
+  "primary": $primary,
+  "secondary": $secondary,
+  "danger": $danger,
+  "success": $success,
+  "warning": $warning,
+  "info": $info,
+  "dark": $dark,
+  "grey": $grey,
+);
+
+$color-ranges: (
+  0: 0,
+  5: 5,
+  10: 10,
+  15: 15,
+  20: 20,
+  25: 25,
+  30: 30,
+  35: 35,
+  40: 40,
+);

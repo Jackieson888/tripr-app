@@ -1,0 +1,42 @@
+{
+  "name": "tripr-app-express",
+  "version": "1.0.0",
+  "description": "Tripr Trip Planning Application - Express.js Backend",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "node src/index.js",
+    "test": "jest --coverage",
+    "lint": "eslint src/",
+    "lint:fix": "eslint src/ --fix"
+  },
+  "keywords": [
+    "express",
+    "mongodb",
+    "socket.io",
+    "auth0"
+  ],
+  "author": "Codeworks",
+  "license": "ISC",
+  "dependencies": {
+    "@bcwdev/auth0provider": "^1.0.7",
+    "body-parser": "^1.20.0",
+    "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "helmet": "^4.6.0",
+    "mongoose": "^6.0.6",
+    "socket.io": "^4.1.2"
+  },
+  "devDependencies": {
+    "eslint": "^7.26.0",
+    "eslint-config-standard": "^16.0.2",
+    "eslint-plugin-import": "^2.23.2",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^4.1.0",
+    "jest": "^27.5.1"
+  },
+  "engines": {
+    "node": "^14.0.0"
+  }
+}

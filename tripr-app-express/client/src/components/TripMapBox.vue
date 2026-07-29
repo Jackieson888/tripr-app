@@ -8,14 +8,13 @@
 </template>
 
 <script>
-import { computed, onMounted, ref, watchEffect } from '@vue/runtime-core'
+import { computed, onMounted, onUnmounted, watchEffect } from '@vue/runtime-core'
 import { MapService2 } from '../services/MapService2'
 import { AppState } from '../AppState'
-import Pop from '../utils/Pop'
 import { logger } from '../utils/Logger'
 
 export default {
-  setup() {
+  setup () {
     let map = null
     const mapSource = computed(() => AppState.tripMapSource)
     onMounted(() => {
@@ -23,11 +22,21 @@ export default {
       loadMap(map, mapSource)
     })
 
+    /**
+     * CRITICAL: Clean up map on component unmount to prevent memory leaks
+     * This must be called to properly dispose WebGL contexts and event listeners
+     */
+    onUnmounted(() => {
+      if (map) {
+        map.remove()
+      }
+    })
+
     watchEffect(() => {
       loadMap(map, mapSource)
     })
 
-    function loadMap(map, mapSource) {
+    function loadMap (map, mapSource) {
       if (map && mapSource.value) {
         console.log('da dta', mapSource.value)
         map.loadMapSource(mapSource.value)
@@ -36,13 +45,11 @@ export default {
 
     return {
       mapSource,
-      async save() {
+      async save () {
         map.saveMap()
       }
-
     }
   }
-
 }
 </script>
 

@@ -11,6 +11,7 @@ export class AuthServiceWrapper {
     this.user = null
     this.isAuthenticated = false
     this.identity = null
+    this.interceptorId = null
   }
 
   async initializeAuth0() {
@@ -27,6 +28,11 @@ export class AuthServiceWrapper {
     return await this.auth0.loginWithRedirect(options)
   }
 
+  async loginWithPopup(options = {}) {
+    if (!this.auth0) await this.initializeAuth0()
+    return await this.auth0.loginWithPopup(options)
+  }
+
   async logout(options = {}) {
     if (!this.auth0) await this.initializeAuth0()
     return await this.auth0.logout(options)
@@ -40,8 +46,20 @@ export class AuthServiceWrapper {
   setBearer(token) {
     this.bearer = token
     if (token) {
+      api.defaults.headers.common = api.defaults.headers.common || {}
+      api.defaults.headers.common.Authorization = `Bearer ${token}`
+      api.defaults.headers.common.authorization = `Bearer ${token}`
       api.defaults.headers.authorization = `Bearer ${token}`
     }
+  }
+
+  clearBearer() {
+    this.bearer = null
+    if (api.defaults.headers.common) {
+      delete api.defaults.headers.common.Authorization
+      delete api.defaults.headers.common.authorization
+    }
+    delete api.defaults.headers.authorization
   }
 
   setAuthenticated(value) {
@@ -58,18 +76,25 @@ export class AuthServiceWrapper {
   }
 
   async setupTokenInterceptor() {
+    if (this.interceptorId !== null) {
+      return
+    }
+
     api.interceptors.request.use(async (config) => {
       if (!this.isAuthenticated) return config
-      
+
       try {
-        const token = await this.getTokenSilently()
+        const token = this.bearer || await this.getTokenSilently()
         this.setBearer(token)
+        config.headers = config.headers || {}
+        config.headers.Authorization = `Bearer ${token}`
         config.headers.authorization = `Bearer ${token}`
       } catch (error) {
-        console.error('Error getting token:', error)
+        return Promise.reject(error)
       }
       return config
     })
+    this.interceptorId = true
   }
 }
 

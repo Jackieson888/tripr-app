@@ -4,7 +4,9 @@
   "description": "Tripr Trip Planning Application - Express.js Backend",
   "main": "src/index.js",
   "scripts": {
+    "predev": "npm --prefix client run build",
     "start": "node src/index.js",
+    "prestart": "npm --prefix client run build",
     "dev": "node src/index.js",
     "test": "jest --coverage",
     "lint": "eslint src/",

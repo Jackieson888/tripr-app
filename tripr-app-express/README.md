@@ -106,6 +106,7 @@ src/
 ```bash
 npm run dev
 ```
+This rebuilds the client first, then starts the Express server on port 3000.
 
 ### Production Mode
 ```bash

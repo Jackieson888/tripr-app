@@ -1,15 +1,14 @@
 ﻿<template>
-  <div class="container">
+  <v-container>
     <h1>Trip Route Details</h1>
     <p>Route details page coming soon.</p>
-  </div>
+  </v-container>
 </template>
 
 <script>
 export default {
-  name: 'TripRouteDetailsPage'
-}
+  name: "TripRouteDetailsPage",
+};
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>

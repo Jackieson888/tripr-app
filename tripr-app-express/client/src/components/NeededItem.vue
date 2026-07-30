@@ -26,63 +26,63 @@
 </template>
 
 <script>
-import { ref } from "@vue/reactivity";
-import { Supplies } from "../Models/Supplies";
-import { useRoute } from "vue-router";
-import { computed, watchEffect } from "@vue/runtime-core";
-import { AppState } from "../AppState";
-import { suppliesService } from "../services/SuppliesService";
-import Pop from "../utils/Pop";
+import { ref } from '@vue/reactivity'
+import { Supplies } from '../Models/Supplies'
+import { useRoute } from 'vue-router'
+import { computed, watchEffect } from '@vue/runtime-core'
+import { AppState } from '../AppState'
+import { suppliesService } from '../services/SuppliesService'
+import Pop from '../utils/Pop'
 
 export default {
   props: {
     supply: {
       type: Supplies,
       default: () => new Supplies(),
-      required: true,
-    },
+      required: true
+    }
   },
   setup(props) {
-    const editable = ref({});
-    const route = useRoute();
+    const editable = ref({})
+    const route = useRoute()
 
     watchEffect(() => {
-      editable.value = { ...props.supply };
-    });
+      editable.value = { ...props.supply }
+    })
 
     return {
       editable,
       account: computed(() => AppState.account),
       async isBringing(supplyId) {
         try {
-          editable.value.isBringing = !editable.value.isBringing;
+          editable.value.isBringing = !editable.value.isBringing
           await suppliesService.editSupplies(
             editable.value,
             route.params.tripId,
-            supplyId,
-          );
+            supplyId
+          )
         } catch (error) {
-          Pop.toast(error.message, "error");
+          Pop.toast(error.message, 'error')
         }
       },
       async removeSupply() {
         try {
           const yes = await Pop.confirm(
-            "Are you sure you want to remove this supply item?",
-          );
+            'Are you sure you want to remove this supply item?'
+          )
           if (!yes) {
-            return;
+            return
           }
           await suppliesService.removeSupply(
             props.supply.id,
-            route.params.tripId,
-          );
-          Pop.toast("Supply item has been removed");
+            route.params.tripId
+          )
+          Pop.toast('Supply item has been removed')
         } catch (error) {
-          Pop.toast(error.message, "error");
+          Pop.toast(error.message, 'error')
         }
-      },
-    };
-  },
-};
+      }
+    }
+  }
+}
 </script>

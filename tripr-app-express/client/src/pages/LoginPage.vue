@@ -29,6 +29,7 @@
 import { watch, ref } from "@vue/runtime-core";
 import { useAuth0 } from "@auth0/auth0-vue";
 import { router } from "../router";
+import { logger } from "../utils/Logger";
 
 export default {
   setup() {
@@ -37,16 +38,16 @@ export default {
     try {
       auth0Data = useAuth0();
     } catch (error) {
-      console.error("Failed to initialize Auth0:", error);
+      logger.error("Failed to initialize Auth0:", error);
     }
 
     if (!auth0Data) {
       return {
         isLoading: ref(false),
         isAuthenticated: ref(false),
-        login: () => console.error("Auth0 not initialized"),
-        signup: () => console.error("Auth0 not initialized"),
-        handleLogout: () => console.error("Auth0 not initialized"),
+        login: () => logger.error("Auth0 not initialized"),
+        signup: () => logger.error("Auth0 not initialized"),
+        handleLogout: () => logger.error("Auth0 not initialized"),
       };
     }
 

@@ -3,9 +3,13 @@
     <v-app-bar-title> Tripr </v-app-bar-title>
     <v-spacer />
 
-    <v-btn :to="{ name: 'About' }"> About </v-btn>
+    <v-btn :to="{ name: 'About' }">
+      About
+    </v-btn>
 
-    <v-btn v-if="!user.isAuthenticated" @click="login"> Login </v-btn>
+    <v-btn v-if="!user.isAuthenticated" @click="login">
+      Login
+    </v-btn>
 
     <v-menu v-else>
       <template #activator="{ props }">
@@ -26,21 +30,21 @@
 </template>
 
 <script>
-import { AuthService } from "../services/AuthService";
-import { AppState } from "../AppState";
-import { computed } from "vue";
+import { AuthService } from '../services/AuthService'
+import { AppState } from '../AppState'
+import { computed } from 'vue'
 
 export default {
   setup() {
     return {
       user: computed(() => AppState.user),
       async login() {
-        AuthService.loginWithPopup();
+        AuthService.loginWithPopup()
       },
       async logout() {
-        AuthService.logout({ returnTo: window.location.origin });
-      },
-    };
-  },
-};
+        AuthService.logout({ returnTo: window.location.origin })
+      }
+    }
+  }
+}
 </script>

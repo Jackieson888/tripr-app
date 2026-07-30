@@ -1,9 +1,30 @@
-#app {
+@import "./variables";
+
+:root {
+  --tripr-surface: #edf0c9;
+  --tripr-surface-soft: rgba(237, 240, 201, 0.12);
+  --tripr-surface-strong: #d6d8a8;
+  --tripr-bg: #424d29;
+  --tripr-bg-deep: #2d331b;
+  --tripr-text: #121309;
+  --tripr-gold: #d7be62;
+  --tripr-gold-soft: #e6d88a;
+  --tripr-border: rgba(232, 221, 163, 0.3);
+  --tripr-shadow: rgba(10, 12, 6, 0.45);
+}
+
+#app,
+.v-application {
   min-height: 100vh;
 }
 
 body {
   margin: 0;
+  color: var(--tripr-surface);
+  background:
+    radial-gradient(circle at top, rgba(226, 211, 145, 0.18), transparent 42%),
+    linear-gradient(180deg, var(--tripr-bg), var(--tripr-bg-deep));
+  font-family: $font-sans-serif;
 }
 
 main {
@@ -12,4 +33,5 @@ main {
 
 a {
   text-decoration: none;
+  color: inherit;
 }

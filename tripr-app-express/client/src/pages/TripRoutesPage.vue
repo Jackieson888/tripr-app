@@ -3,7 +3,9 @@
     <v-row>
       <v-col class="d-flex justify-space-between align-center">
         <h1>Routes</h1>
-        <v-btn @click="toTripPage"> Back To Trip </v-btn>
+        <v-btn @click="toTripPage">
+          Back To Trip
+        </v-btn>
       </v-col>
     </v-row>
 
@@ -28,33 +30,33 @@
 </template>
 
 <script>
-import { computed, onMounted } from "@vue/runtime-core";
-import { AppState } from "../AppState";
-import { suppliesService } from "../services/SuppliesService";
-import Pop from "../utils/Pop";
-import { tripsService } from "../services/TripsService";
-import { useRoute } from "vue-router";
+import { computed, onMounted } from '@vue/runtime-core'
+import { AppState } from '../AppState'
+import { suppliesService } from '../services/SuppliesService'
+import Pop from '../utils/Pop'
+import { tripsService } from '../services/TripsService'
+import { useRoute } from 'vue-router'
 
 export default {
   setup() {
-    const route = useRoute();
+    const route = useRoute()
 
-    onMounted(async () => {
-      await tripsService.setCurrentTrip(route.params.tripId);
-    });
+    onMounted(async() => {
+      await tripsService.setCurrentTrip(route.params.tripId)
+    })
 
     return {
       trip: computed(() => AppState.currentTrip),
       async toTripPage() {
         try {
-          await suppliesService.gotoTripPage();
+          await suppliesService.gotoTripPage()
         } catch (error) {
-          Pop.toast(error.message, "error");
+          Pop.toast(error.message, 'error')
         }
-      },
-    };
-  },
-};
+      }
+    }
+  }
+}
 </script>
 
 <style scoped>

@@ -4,7 +4,9 @@
   "private": true,
   "scripts": {
     "serve": "vite",
-    "build": "vite build"
+    "build": "vite build",
+    "lint": "eslint src/ --ext .js,.vue",
+    "lint:fix": "eslint src/ --ext .js,.vue --fix"
   },
   "dependencies": {
     "@auth0/auth0-vue": "^2.9.0",

@@ -10,7 +10,7 @@ import { MapService } from '../services/MapService'
 import { AppState } from '../AppState'
 
 export default {
-  setup () {
+  setup() {
     let map = null
     const mapSource = computed(() => AppState.tripStartSource)
     onMounted(() => {
@@ -38,7 +38,7 @@ export default {
     })
 
     return {
-      async save () {
+      async save() {
         map.saveMap()
       }
     }

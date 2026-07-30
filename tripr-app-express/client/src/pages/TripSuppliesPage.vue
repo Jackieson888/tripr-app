@@ -3,7 +3,9 @@
     <v-row>
       <v-col class="d-flex justify-space-between align-center">
         <h1>Supplies</h1>
-        <v-btn @click="toTripPage"> Back To Trip </v-btn>
+        <v-btn @click="toTripPage">
+          Back To Trip
+        </v-btn>
       </v-col>
     </v-row>
 
@@ -15,7 +17,9 @@
             label="Add Supply Item"
             required
           />
-          <v-btn type="submit" color="primary"> Add </v-btn>
+          <v-btn type="submit" color="primary">
+            Add
+          </v-btn>
         </v-form>
       </v-col>
     </v-row>
@@ -45,55 +49,55 @@
 </template>
 
 <script>
-import { computed, onMounted, ref } from "@vue/runtime-core";
-import { suppliesService } from "../services/SuppliesService";
-import Pop from "../utils/Pop";
-import { AppState } from "../AppState";
-import { useRoute } from "vue-router";
+import { computed, onMounted, ref } from '@vue/runtime-core'
+import { suppliesService } from '../services/SuppliesService'
+import Pop from '../utils/Pop'
+import { AppState } from '../AppState'
+import { useRoute } from 'vue-router'
 
 export default {
   setup() {
-    const editable = ref({});
-    const route = useRoute();
+    const editable = ref({})
+    const route = useRoute()
 
-    onMounted(async () => {
+    onMounted(async() => {
       try {
-        await suppliesService.getSupplies(route.params.tripId);
+        await suppliesService.getSupplies(route.params.tripId)
       } catch (error) {
-        Pop.toast(error.message, "error");
+        Pop.toast(error.message, 'error')
       }
-    });
+    })
 
     return {
       editable,
       currentSupplies: computed(() =>
         AppState.currentSupplies.filter(
-          (s) => s.isBringing === false || s.assignedId === AppState.account.id,
-        ),
+          (s) => s.isBringing === false || s.assignedId === AppState.account.id
+        )
       ),
       assignedSupplies: computed(() =>
-        AppState.currentSupplies.filter((s) => s.isBringing === true),
+        AppState.currentSupplies.filter((s) => s.isBringing === true)
       ),
       async addSupplyItem() {
         try {
           await suppliesService.createSupplies(
             editable.value,
-            route.params.tripId,
-          );
-          editable.value = {};
-          Pop.toast("Supply item added", "success");
+            route.params.tripId
+          )
+          editable.value = {}
+          Pop.toast('Supply item added', 'success')
         } catch (error) {
-          Pop.toast(error.message, "error");
+          Pop.toast(error.message, 'error')
         }
       },
       async toTripPage() {
         try {
-          await suppliesService.gotoTripPage();
+          await suppliesService.gotoTripPage()
         } catch (error) {
-          Pop.toast(error.message, "error");
+          Pop.toast(error.message, 'error')
         }
-      },
-    };
-  },
-};
+      }
+    }
+  }
+}
 </script>

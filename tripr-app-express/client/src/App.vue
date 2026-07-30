@@ -13,12 +13,15 @@ import { AppState } from "./AppState";
 import { AuthService } from "./services/AuthService";
 import { accountService } from "./services/AccountService";
 import { socketService } from "./services/SocketService";
+import { logger } from "./utils/Logger";
 export default {
   name: "App",
   setup() {
     const auth0 = useAuth0();
 
-    void AuthService.setupTokenInterceptor();
+    AuthService.setupTokenInterceptor().catch((error) => {
+      logger.error("Failed to set up token interceptor", error);
+    });
 
     watch(
       [() => auth0.isAuthenticated.value, () => auth0.user.value],

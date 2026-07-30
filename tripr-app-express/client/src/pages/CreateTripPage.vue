@@ -28,29 +28,29 @@
 </template>
 
 <script>
-import { ref } from "@vue/reactivity";
-import { watchEffect } from "@vue/runtime-core";
-import { tripsService } from "../services/TripsService";
-import Pop from "../utils/Pop";
-import { router } from "../router";
-import { AppState } from "../AppState";
+import { ref } from '@vue/reactivity'
+import { watchEffect } from '@vue/runtime-core'
+import { tripsService } from '../services/TripsService'
+import Pop from '../utils/Pop'
+import { router } from '../router'
+import { AppState } from '../AppState'
 
 export default {
   setup(props) {
-    const editable = ref({});
+    const editable = ref({})
 
     watchEffect(() => {
-      editable.value = { ...props.trip };
-    });
+      editable.value = { ...props.trip }
+    })
 
     return {
       editable,
       async handleSubmit() {
         try {
-          const title = (editable.value.title || "").trim();
+          const title = (editable.value.title || '').trim()
           if (title.length < 3) {
-            Pop.toast("Trip name must be at least 3 characters", "error");
-            return;
+            Pop.toast('Trip name must be at least 3 characters', 'error')
+            return
           }
 
           const tripData = {
@@ -59,27 +59,27 @@ export default {
             geo: AppState.tripMapSource,
             tripImgUrl: AppState.startingImg,
             travelType: editable.value.travelType,
-            startDate: editable.value.startDate,
-          };
+            startDate: editable.value.startDate
+          }
 
           if (editable.value.id) {
-            await tripsService.editTrip(editable.value.id, tripData);
-            Pop.toast("Trip has been adjusted", "success");
+            await tripsService.editTrip(editable.value.id, tripData)
+            Pop.toast('Trip has been adjusted', 'success')
           } else {
-            await tripsService.createTrip(tripData);
-            Pop.toast("Trip has been planned", "success");
-            editable.value = {};
+            await tripsService.createTrip(tripData)
+            Pop.toast('Trip has been planned', 'success')
+            editable.value = {}
           }
         } catch (error) {
-          Pop.toast(error.message, "error");
+          Pop.toast(error.message, 'error')
         }
       },
       goToAccountPage() {
-        router.push({ name: "Account" });
-      },
-    };
-  },
-};
+        router.push({ name: 'Account' })
+      }
+    }
+  }
+}
 </script>
 
 <style scoped>

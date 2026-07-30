@@ -12,7 +12,9 @@
     <v-row v-if="trips.length === 0">
       <v-col>
         <p>You have no trips yet.</p>
-        <v-btn :to="{ name: 'CreateTrip' }"> Create Trip </v-btn>
+        <v-btn :to="{ name: 'CreateTrip' }">
+          Create Trip
+        </v-btn>
       </v-col>
     </v-row>
 
@@ -25,19 +27,19 @@
 </template>
 
 <script>
-import { computed, onMounted } from "@vue/runtime-core";
-import { AppState } from "../AppState";
-import { tripsService } from "../services/TripsService";
+import { computed, onMounted } from '@vue/runtime-core'
+import { AppState } from '../AppState'
+import { tripsService } from '../services/TripsService'
 
 export default {
   setup() {
-    onMounted(async () => {
-      await tripsService.getAllMyTrackedTrips();
-    });
+    onMounted(async() => {
+      await tripsService.getAllMyTrackedTrips()
+    })
 
     return {
-      trips: computed(() => AppState.mytrips),
-    };
-  },
-};
+      trips: computed(() => AppState.mytrips)
+    }
+  }
+}
 </script>

@@ -8,19 +8,24 @@
 </template>
 
 <script>
-import { computed, onMounted, onUnmounted, watchEffect } from '@vue/runtime-core'
-import { MapService2 } from '../services/MapService2'
-import { AppState } from '../AppState'
-import { logger } from '../utils/Logger'
+import {
+  computed,
+  onMounted,
+  onUnmounted,
+  watchEffect,
+} from "@vue/runtime-core";
+import { MapService2 } from "../services/MapService2";
+import { AppState } from "../AppState";
+import { logger } from "../utils/Logger";
 
 export default {
-  setup () {
-    let map = null
-    const mapSource = computed(() => AppState.tripMapSource)
+  setup() {
+    let map = null;
+    const mapSource = computed(() => AppState.tripMapSource);
     onMounted(() => {
-      map = new MapService2()
-      loadMap(map, mapSource)
-    })
+      map = new MapService2();
+      loadMap(map, mapSource);
+    });
 
     /**
      * CRITICAL: Clean up map on component unmount to prevent memory leaks
@@ -28,29 +33,29 @@ export default {
      */
     onUnmounted(() => {
       if (map) {
-        map.remove()
+        map.remove();
       }
-    })
+    });
 
     watchEffect(() => {
-      loadMap(map, mapSource)
-    })
+      loadMap(map, mapSource);
+    });
 
-    function loadMap (map, mapSource) {
+    function loadMap(map, mapSource) {
       if (map && mapSource.value) {
-        console.log('da dta', mapSource.value)
-        map.loadMapSource(mapSource.value)
+        logger.log("Trip map source", mapSource.value);
+        map.loadMapSource(mapSource.value);
       }
     }
 
     return {
       mapSource,
-      async save () {
-        map.saveMap()
-      }
-    }
-  }
-}
+      async save() {
+        map.saveMap();
+      },
+    };
+  },
+};
 </script>
 
 <style lang="scss">

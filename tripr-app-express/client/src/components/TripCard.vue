@@ -30,17 +30,17 @@
 </template>
 
 <script>
-import { computed } from "@vue/runtime-core";
-import { tripsService } from "../services/TripsService";
-import Pop from "../utils/Pop";
-import { AppState } from "../AppState";
+import { computed } from '@vue/runtime-core'
+import { tripsService } from '../services/TripsService'
+import Pop from '../utils/Pop'
+import { AppState } from '../AppState'
 
 export default {
   props: {
     trip: {
       type: Object,
-      required: true,
-    },
+      required: true
+    }
   },
   setup() {
     return {
@@ -48,17 +48,17 @@ export default {
       async deleteTrip(tripId) {
         try {
           const yes = await Pop.confirm(
-            "Are you sure you want to remove this trip?",
-          );
+            'Are you sure you want to remove this trip?'
+          )
           if (!yes) {
-            return;
+            return
           }
-          await tripsService.deleteTrip(tripId);
+          await tripsService.deleteTrip(tripId)
         } catch (error) {
-          Pop.toast(error, "error");
+          Pop.toast(error, 'error')
         }
-      },
-    };
-  },
-};
+      }
+    }
+  }
+}
 </script>

@@ -52,38 +52,38 @@
 </template>
 
 <script>
-import { ref } from "@vue/reactivity";
-import { watchEffect } from "@vue/runtime-core";
-import { tripsService } from "../services/TripsService";
-import Pop from "../utils/Pop";
+import { ref } from '@vue/reactivity'
+import { watchEffect } from '@vue/runtime-core'
+import { tripsService } from '../services/TripsService'
+import Pop from '../utils/Pop'
 export default {
   //   props: {
   //     trip: { type: Trip }
   //   },
   setup(props) {
-    const editable = ref({});
+    const editable = ref({})
     watchEffect(() => {
-      editable.value = { ...props.trip };
-    });
+      editable.value = { ...props.trip }
+    })
     return {
       editable,
       async handleSubmit() {
         try {
           if (editable.value.id) {
-            await tripsService.editTrip(editable.value);
-            Pop.toast("Trip has been adjusted", "success");
+            await tripsService.editTrip(editable.value)
+            Pop.toast('Trip has been adjusted', 'success')
           } else {
-            await tripsService.createTrip(editable.value);
-            Pop.toast("Trip has been Planned", "success");
-            editable.value = {};
+            await tripsService.createTrip(editable.value)
+            Pop.toast('Trip has been Planned', 'success')
+            editable.value = {}
           }
         } catch (error) {
-          Pop.toast(error.message, "error");
+          Pop.toast(error.message, 'error')
         }
-      },
-    };
-  },
-};
+      }
+    }
+  }
+}
 </script>
 
 <style lang="scss" scoped></style>

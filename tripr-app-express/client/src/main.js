@@ -7,11 +7,12 @@ import App from "./App.vue";
 import { registerGlobalComponents } from "./registerGlobalComponents";
 import { router } from "./router";
 import { vuetify } from "./plugins/vuetify";
+import { logger } from "./utils/Logger";
 
 const app = createApp(App);
 
 // Log Auth0 configuration for debugging
-console.log("Auth0 Configuration:", {
+logger.log("Auth0 Configuration:", {
   domain: import.meta.env.VITE_AUTH0_DOMAIN,
   clientId: import.meta.env.VITE_AUTH0_CLIENT_ID,
   redirectUri: window.location.origin,

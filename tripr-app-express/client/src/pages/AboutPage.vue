@@ -27,36 +27,36 @@
 </template>
 
 <script>
-import { router } from "../router";
-import Pop from "../utils/Pop";
+import { router } from '../router'
+import Pop from '../utils/Pop'
 
 export default {
-  name: "AboutPage",
+  name: 'AboutPage',
   setup() {
     const members = [
-      { name: "Scott Fennie", github: "https://github.com/ScottFennie" },
+      { name: 'Scott Fennie', github: 'https://github.com/ScottFennie' },
       {
-        name: "Nathan Hendricks",
-        github: "https://github.com/NathanHendricks",
+        name: 'Nathan Hendricks',
+        github: 'https://github.com/NathanHendricks'
       },
-      { name: "Drew McReynolds", github: "https://github.com/drewmcreynolds" },
+      { name: 'Drew McReynolds', github: 'https://github.com/drewmcreynolds' },
       {
-        name: "Jackson Schacher",
-        github: "https://github.com/JacksonSchacher",
+        name: 'Jackson Schacher',
+        github: 'https://github.com/JacksonSchacher'
       },
-      { name: "Quinn Perri", github: "https://github.com/KranberryKin" },
-    ];
+      { name: 'Quinn Perri', github: 'https://github.com/KranberryKin' }
+    ]
 
     return {
       members,
       goToLoginPage() {
         try {
-          router.push({ name: "Login" });
+          router.push({ name: 'Login' })
         } catch (error) {
-          Pop.toast(error.message, "error");
+          Pop.toast(error.message, 'error')
         }
-      },
-    };
-  },
-};
+      }
+    }
+  }
+}
 </script>

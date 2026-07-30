@@ -2,11 +2,10 @@
   <v-container>
     <v-row>
       <v-col>
-        <v-card>
-          <v-card-text>
+        <v-container>
+          <v-col>
             <div v-if="displayPicture">
-              <v-avatar size="64">
-                <img :src="displayPicture" alt="account picture" />
+              <v-avatar size="64" :image="displayPicture" alt="account picture">
               </v-avatar>
             </div>
             <h2>
@@ -14,16 +13,18 @@
             </h2>
             <p>Last Trip: {{ lastTripDate }}</p>
             <p>Total Trips: {{ mytrips.length }}</p>
-          </v-card-text>
-          <v-card-actions>
-            <v-btn @click="showEditProfile = true"> Edit Profile </v-btn>
-            <v-btn :to="{ name: 'CreateTrip' }"> Create Trip </v-btn>
-            <v-btn @click="showJoinTrip = true"> Join Trip </v-btn>
-            <v-btn :to="{ name: 'YourTrips' }"> Your Trips </v-btn>
-            <v-spacer />
-            <v-btn color="error" @click="logout"> Logout </v-btn>
-          </v-card-actions>
-        </v-card>
+          </v-col>
+          <v-col>
+            <v-btn @click="onCreateTrip" variant="plain">
+              <img src="../assets/img/create-badge.png" alt="Create Trip" />
+              CREATE
+            </v-btn>
+            <v-btn @click="showJoinTrip = true" variant="plain">
+              <img src="../assets/img/join-badge.png" alt="Join Trip" />
+              JOIN
+            </v-btn>
+          </v-col>
+        </v-container>
       </v-col>
     </v-row>
 
@@ -97,6 +98,9 @@ export default {
       displayPicture: computed(
         () => auth0?.user?.value?.picture || AppState.account?.picture || "",
       ),
+      onCreateTrip() {
+        router.push({ name: "CreateTrip" });
+      },
       lastTripDate: computed(() => {
         const dateSource =
           AppState.mytrips[AppState.mytrips.length - 1]?.updatedAt ||

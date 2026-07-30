@@ -2,6 +2,7 @@
   <v-container>
     <v-row>
       <v-col class="d-flex justify-space-between align-center">
+        <v-icon icon="$rv-truck"></v-icon>
         <h1>Create Trip</h1>
         <v-btn icon @click="goToAccountPage">
           <i class="mdi mdi-close"></i>

@@ -77,12 +77,14 @@ src/
 ## Installation
 
 1. **Clone the repository**
+
    ```bash
    git clone <repository-url>
    cd tripr-app-express
    ```
 
 2. **Install dependencies**
+
    ```bash
    npm install
    ```
@@ -103,17 +105,26 @@ src/
 ## Running the Application
 
 ### Development Mode
+
 ```bash
 npm run dev
 ```
-This rebuilds the client first, then starts the Express server on port 3000.
+
+This starts both servers with hot reload:
+
+- Express API server (nodemon) on port 3001
+- Vite client dev server (HMR) on port 3000
+
+Open the app at `http://localhost:3000` during development.
 
 ### Production Mode
+
 ```bash
 npm start
 ```
 
 ### Linting
+
 ```bash
 npm run lint
 npm run lint:fix
@@ -122,16 +133,19 @@ npm run lint:fix
 ## API Endpoints
 
 ### Account Routes
+
 - `GET /api/account` - Get authenticated user account
 - `PUT /api/account` - Update user profile
 - `GET /api/account/trackedtrips` - Get user's tracked trips
 - `DELETE /api/account/trackedtrips/:id` - Remove tracked trip
 
 ### Profiles
+
 - `GET /api/profiles` - Search profiles by name
 - `GET /api/profiles/:id` - Get profile by ID
 
 ### Trips
+
 - `GET /api/trips` - Get all trips
 - `POST /api/trips` - Create new trip
 - `GET /api/trips/:tripId` - Get trip details
@@ -139,12 +153,14 @@ npm run lint:fix
 - `DELETE /api/trips/:tripId` - Delete trip
 
 ### Travelers
+
 - `GET /api/trips/:tripId/travelers` - Get trip travelers
 - `POST /api/trips/:tripId/travelers` - Add traveler to trip
 - `GET /api/trips/:tripId/travelers/:id` - Get traveler details
 - `DELETE /api/trips/:tripId/travelers/:id` - Remove traveler
 
 ### Supplies
+
 - `GET /api/trips/:tripId/supplies` - Get trip supplies
 - `POST /api/trips/:tripId/supplies` - Create supply item
 - `GET /api/trips/:tripId/supplies/:id` - Get supply details
@@ -152,6 +168,7 @@ npm run lint:fix
 - `DELETE /api/trips/:tripId/supplies/:id` - Delete supply
 
 ### Route Details
+
 - `GET /api/trips/:tripId/routes` - Get route details
 - `POST /api/trips/:tripId/routes` - Create route detail
 - `GET /api/trips/:tripId/routes/:id` - Get route details
@@ -159,20 +176,24 @@ npm run lint:fix
 - `DELETE /api/trips/:tripId/routes/:id` - Delete route
 
 ### Tracked Trips
+
 - `POST /api/trackedtrips` - Join trip (create tracked trip)
 
 ### Values
+
 - `GET /api/values` - Get all values
 - `POST /api/values` - Create new value (authenticated)
 
 ## Socket.IO Events
 
 ### Client Events
+
 - `authenticate` - Authenticate user with bearer token
 - `SOCKET_TEST` - Test socket connection
 - `AUTH_TEST` - Test authenticated socket connection
 
 ### Server Events
+
 - `connected` - Emitted when socket connects
 - `authenticated` - Emitted after successful authentication
 - `userConnected` - Broadcast when user connects
@@ -182,6 +203,7 @@ npm run lint:fix
 ## Authentication
 
 The application uses Auth0 for authentication. All protected routes require:
+
 - A valid Bearer token in the Authorization header
 - Token must include the user ID in the `id` claim
 - Account is automatically created/updated on first request
@@ -189,6 +211,7 @@ The application uses Auth0 for authentication. All protected routes require:
 ## Error Handling
 
 Custom error classes with status codes:
+
 - `NotFound` (404) - Resource not found
 - `Forbidden` (403) - Access denied
 - `UnAuthorized` (401) - Authentication required
@@ -198,6 +221,7 @@ Custom error classes with status codes:
 ## Database
 
 MongoDB schemas include:
+
 - **Account** - User accounts with Auth0 subs
 - **Profile** - Public user profile information
 - **Trip** - Trip planning documents

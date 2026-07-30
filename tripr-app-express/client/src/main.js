@@ -1,33 +1,33 @@
-import "@mdi/font/css/materialdesignicons.css";
-import "vuetify/styles";
-import { createApp } from "vue";
-import { createAuth0 } from "@auth0/auth0-vue";
+import '@mdi/font/css/materialdesignicons.css'
+import 'vuetify/styles'
+import { createApp } from 'vue'
+import { createAuth0 } from '@auth0/auth0-vue'
 // @ts-ignore
-import App from "./App.vue";
-import { registerGlobalComponents } from "./registerGlobalComponents";
-import { router } from "./router";
-import { vuetify } from "./plugins/vuetify";
-import { logger } from "./utils/Logger";
+import App from './App.vue'
+import { registerGlobalComponents } from './registerGlobalComponents'
+import { router } from './router'
+import { vuetify } from './plugins/vuetify'
+import { logger } from './utils/Logger'
 
-const app = createApp(App);
+const app = createApp(App)
 
 // Log Auth0 configuration for debugging
-logger.log("Auth0 Configuration:", {
+logger.log('Auth0 Configuration:', {
   domain: import.meta.env.VITE_AUTH0_DOMAIN,
   clientId: import.meta.env.VITE_AUTH0_CLIENT_ID,
-  redirectUri: window.location.origin,
-});
+  redirectUri: window.location.origin
+})
 
 app.use(
   createAuth0({
     domain: import.meta.env.VITE_AUTH0_DOMAIN,
     clientId: import.meta.env.VITE_AUTH0_CLIENT_ID,
     authorizationParams: {
-      redirect_uri: window.location.origin,
-    },
-  }),
-);
+      redirect_uri: window.location.origin
+    }
+  })
+)
 
-registerGlobalComponents(app);
+registerGlobalComponents(app)
 
-app.use(vuetify).use(router).mount("#app");
+app.use(vuetify).use(router).mount('#app')

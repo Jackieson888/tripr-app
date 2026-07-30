@@ -6,22 +6,22 @@
 </template>
 
 <script>
-import { onMounted } from "@vue/runtime-core";
+import { onMounted } from '@vue/runtime-core'
 // import { onMounted } from '@vue/runtime-core'
 // import { loadModules } from 'esri-loader'
 
-let Map = {};
-let MapView = {};
-require(["esri/config", "esri/Map", "esri/views/MapView"], function (
+let Map = {}
+let MapView = {}
+require(['esri/config', 'esri/Map', 'esri/views/MapView'], function(
   esriConfig,
   MapSRC,
-  MapViewSRC,
+  MapViewSRC
 ) {
   esriConfig.apiKey =
-    "AAPKa4bb649adabd41ecb17f3b4614ec7de7fuFnN6h7T8A3zAcPcAcHaegzQPO-vZsAP6BBQxC3xkINSgaNvUlnI_ZmhHz3yTlU";
-  Map = MapSRC;
-  MapView = MapViewSRC;
-});
+    'AAPKa4bb649adabd41ecb17f3b4614ec7de7fuFnN6h7T8A3zAcPcAcHaegzQPO-vZsAP6BBQxC3xkINSgaNvUlnI_ZmhHz3yTlU'
+  Map = MapSRC
+  MapView = MapViewSRC
+})
 
 export default {
   // props: {
@@ -31,23 +31,24 @@ export default {
   //   }
   // },
   setup() {
-    onMounted(async () => {
+    onMounted(async() => {
       // createMap() {
       const map = new Map({
-        basemap: "arcgis-topographic", // Basemap layer service
-      });
+        basemap: 'arcgis-topographic' // Basemap layer service
+      })
 
-      new MapView({
+      const view = new MapView({
         map: map,
         center: [-111.805, 34.027], // Longitude, latitude
         zoom: 13, // Zoom level
-        container: "map", // Div element
-      });
+        container: 'map' // Div element
+      })
+      return view
       // }
-    });
-    return {};
-  },
-};
+    })
+    return {}
+  }
+}
 </script>
 
 <style lang="scss" scoped>

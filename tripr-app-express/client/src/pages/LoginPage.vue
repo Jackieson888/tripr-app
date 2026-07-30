@@ -11,12 +11,18 @@
               color="primary"
             />
             <div v-else style="display: flex; gap: 8px; flex-wrap: wrap">
-              <v-btn v-if="!isAuthenticated" @click="login"> Login </v-btn>
-              <v-btn v-if="!isAuthenticated" @click="signup"> Signup </v-btn>
+              <v-btn v-if="!isAuthenticated" @click="login">
+                Login
+              </v-btn>
+              <v-btn v-if="!isAuthenticated" @click="signup">
+                Signup
+              </v-btn>
               <v-btn v-if="isAuthenticated" @click="handleLogout">
                 Logout
               </v-btn>
-              <v-btn :to="{ name: 'About' }"> About </v-btn>
+              <v-btn :to="{ name: 'About' }">
+                About
+              </v-btn>
             </div>
           </v-card-text>
         </v-card>
@@ -26,69 +32,69 @@
 </template>
 
 <script>
-import { watch, ref } from "@vue/runtime-core";
-import { useAuth0 } from "@auth0/auth0-vue";
-import { router } from "../router";
-import { logger } from "../utils/Logger";
+import { watch, ref } from '@vue/runtime-core'
+import { useAuth0 } from '@auth0/auth0-vue'
+import { router } from '../router'
+import { logger } from '../utils/Logger'
 
 export default {
   setup() {
-    let auth0Data = null;
+    let auth0Data = null
 
     try {
-      auth0Data = useAuth0();
+      auth0Data = useAuth0()
     } catch (error) {
-      logger.error("Failed to initialize Auth0:", error);
+      logger.error('Failed to initialize Auth0:', error)
     }
 
     if (!auth0Data) {
       return {
         isLoading: ref(false),
         isAuthenticated: ref(false),
-        login: () => logger.error("Auth0 not initialized"),
-        signup: () => logger.error("Auth0 not initialized"),
-        handleLogout: () => logger.error("Auth0 not initialized"),
-      };
+        login: () => logger.error('Auth0 not initialized'),
+        signup: () => logger.error('Auth0 not initialized'),
+        handleLogout: () => logger.error('Auth0 not initialized')
+      }
     }
 
-    const { isLoading, isAuthenticated, loginWithRedirect, logout } = auth0Data;
+    const { isLoading, isAuthenticated, loginWithRedirect, logout } = auth0Data
 
-    const login = async () => {
-      await loginWithRedirect();
-    };
+    const login = async() => {
+      await loginWithRedirect()
+    }
 
-    const signup = async () => {
+    const signup = async() => {
       await loginWithRedirect({
         authorizationParams: {
-          screen_hint: "signup",
-        },
-      });
-    };
+          screen_hint: 'signup'
+        }
+      })
+    }
 
-    const handleLogout = async () => {
+    const handleLogout = async() => {
       await logout({
         logoutParams: {
-          returnTo: window.location.origin,
-        },
-      });
-    };
+          returnTo: window.location.origin
+        }
+      })
+    }
 
     watch(
       () => isAuthenticated.value,
       (auth) => {
         if (auth) {
-          router.push({ name: "Account" });
+          router.push({ name: 'Account' })
         }
-      },
-    );
+      }
+    )
 
     return {
       isLoading,
       isAuthenticated,
       login,
       signup,
-      handleLogout,
-    };
-  },
-};
+      handleLogout
+    }
+  }
+}
 </script>
